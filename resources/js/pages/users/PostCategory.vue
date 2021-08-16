@@ -76,8 +76,8 @@
 
             <div class="p-4">
               <h4 class="fst-italic">Archives</h4>
-              <ol class="list-unstyled mb-0" v-for="item in category">
-                <li><router-link :to="{ name: 'PostCategory', params: {category: item.category} }">{{ item.category }}</router-link></li>
+              <ol class="list-unstyled mb-0" v-for="category in allCategory">
+                <li><router-link :to="{ name: 'PostCategory', params: {category: category.category} }">{{ category.category }}</router-link></li>
               </ol>
             </div>
 
@@ -99,26 +99,31 @@
 </template>
 <script>
 export default {
+  props: ['category'],
+  watch:{
+    $route (to, from){
+      this.getDataByCategory();
+    }
+  },
   mounted() {
-    this.getDataPost();
+    this.getDataByCategory();
     this.getCategory();
-    
   },
   data() {
     return {
       posts: [],
-      category: null,
+      allCategory: null,
     }
   },
   methods: {
-    getDataPost() {
-      axios.get('/api/posts').then((response) => {
+    getDataByCategory() {
+      axios.get(`/api/posts/category/${this.category}`).then((response) => {
         this.posts = response.data;
       });
     },
     getCategory() {
       axios.get(`/api/posts/category`).then((response) => {
-        this.category = response.data;
+        this.allCategory = response.data;
       });
     }
   },

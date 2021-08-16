@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PostController extends Controller
 {
@@ -67,5 +68,29 @@ class PostController extends Controller
     {
         $post = Post::find($id)->delete();
         return back()->with('success', 'Create New Posts Successfull !!');
+    }
+
+    public function getData()
+    {
+        $posts = $this->Post->dataPost();
+        return response()->json($posts, Response::HTTP_OK);
+    }
+    
+    public function getSpecificData($slug)
+    {
+        $posts = $this->Post->dataPostBySlug($slug);
+        return response()->json($posts, Response::HTTP_ACCEPTED);
+    }
+    
+    public function getPostCategory()
+    {
+        $posts = $this->Post->postCategory();
+        return response()->json($posts, Response::HTTP_ACCEPTED);
+    }
+    
+    public function getSpecificCategory($category)
+    {
+        $posts = $this->Post->dataPostByCategory($category);
+        return response()->json($posts, Response::HTTP_ACCEPTED);
     }
 }

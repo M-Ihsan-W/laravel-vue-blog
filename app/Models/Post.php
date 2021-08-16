@@ -47,4 +47,24 @@ class Post extends Model
             $post->save();
         }
     }
+
+    public function dataPost() {
+        $posts = Post::all();
+        return $posts;
+    }
+
+    public function dataPostBySlug($slug) {
+        $posts = Post::where('slug', $slug)->get();
+        return $posts;
+    }
+
+    public function postCategory() {
+        $posts = Post::select('category')->orderBy('category', 'ASC')->groupBy('category')->get();
+        return $posts;
+    }
+    
+    public function dataPostByCategory($category) {
+        $posts = Post::where('category', $category)->get();
+        return $posts;
+    }
 }

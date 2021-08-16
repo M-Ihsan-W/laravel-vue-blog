@@ -7,7 +7,7 @@
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><router-link class="nav-link px-2 text-white" to="/home">Home</router-link></li>
+          <li><router-link class="nav-link px-2 text-white" to="/" exact>Home</router-link></li>
           <li><router-link class="nav-link px-2 text-white" to="/about">About</router-link></li>
           <li><router-link class="nav-link px-2 text-white" to="/posts">Posts</router-link></li>
           <li><router-link class="nav-link px-2 text-white" to="/posts/slug">Detail</router-link></li>

@@ -5,7 +5,7 @@
     <h1 class="my-3">Blog Posts</h1>
     <a class="btn btn-primary my-1" href="/admin/posts/create">New Post <i class="bi bi-plus-circle"></i></a>
     <div class="table-responsive">
-      <table id="myTable">
+      <table id="myTable" class="text-center">
         <thead>
           <tr>
             <th>No</th>
@@ -36,6 +36,9 @@
                 </a>
               </td>
             </tr>
+            @php
+                $count++
+            @endphp
           @endforeach
         </tbody>
       </table>

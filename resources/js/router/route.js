@@ -6,15 +6,14 @@ Vue.use(VueRouter);
 import Home from '../pages/users/Home.vue';
 import About from '../pages/users/About.vue';
 import Post from '../pages/users/Posts.vue';
+import PostCategory from '../pages/users/PostCategory.vue';
 import DetailPost from '../pages/users/DetailPost.vue';
 import PageNotFound from '../pages/users/PageNotFound.vue';
-
-// admin
 
 const routes = [
   {
     name: 'home',
-    path: '/home',
+    path: '/',
     meta: {
       title: 'Blog | Home'
     },
@@ -37,6 +36,15 @@ const routes = [
     component: Post
   },
   {
+    name: 'PostCategory',
+    path: '/posts/category/:category?',
+    meta: {
+      title: 'Blog | Posts'
+    },
+    component: PostCategory,
+    props: true,
+  },
+  {
     name: 'detail',
     path: '/posts/:slug',
     meta: {
@@ -52,8 +60,9 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  linkActiveClass: 'active',
   mode: 'history',
+  linkActiveClass: 'active',
+  linkExactActiveClass: "exact-active",
   routes: routes
 });
 
