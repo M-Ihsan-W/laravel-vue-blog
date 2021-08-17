@@ -2233,9 +2233,6 @@ __webpack_require__.r(__webpack_exports__);
     }, 5000); // axios.get('/sanctum/csrf-cookie').then(response => {
     //   console.info(response);
     // });
-    // axios.get('/sanctum/csrf-cookie').then(response => {
-    //   console.info(response);
-    // });
     // axios.get('/api/token').then(response => {
     //   console.info(response);
     //   this.form._token = response.data;
