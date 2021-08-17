@@ -36,8 +36,7 @@ export default {
     return {
       form: {
         email: '',
-        password: '',
-        _token: '',
+        password: ''
       },
       errors: [],
       message: null,
@@ -48,13 +47,6 @@ export default {
     setTimeout(function() {
       sessionStorage.removeItem('success-regist');
     }, 5000);
-    // axios.get('/sanctum/csrf-cookie').then(response => {
-    //   console.info(response);
-    // });
-    // axios.get('/api/token').then(response => {
-    //   console.info(response);
-    //   this.form._token = response.data;
-    // });
   },
   methods: {
     login() {

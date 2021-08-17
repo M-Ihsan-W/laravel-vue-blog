@@ -33,7 +33,7 @@ class Post extends Model
             $post = Post::find($id);
             $post->creator = $request->creator;
             $post->title = $request->title;
-            $post->slug = Str::of($request->title + time())->slug();
+            $post->slug = Str::of($request->title)->slug();
             $post->category = $request->category;
             $post->image = $filename;
             $post->content = $request->content;
@@ -42,7 +42,7 @@ class Post extends Model
             $post = Post::find($id);
             $post->creator = $request->creator;
             $post->title = $request->title;
-            $post->slug = Str::of($request->title + time())->slug();
+            $post->slug = Str::of($request->title)->slug();
             $post->category = $request->category;
             $post->content = $request->content;
             $post->save();

@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,14 +36,6 @@ Route::post('/update/post/{id}', [PostController::class, 'update']);
 Route::delete('/delete/post/{id}', [PostController::class, 'destroy']);
 
 // Authentication
-Route::post('/register', [RegisterController::class, 'register']);
-Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout']);
-// Route::group(['middleware' => ['web']], function () {
-    // Route::get('/token', function (Request $request) {
-    //     $token = $request->session()->token();
-    
-    //     $token = csrf_token();
-    //     return $token;
-    // });
-// });
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout']);

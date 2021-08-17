@@ -43,8 +43,6 @@
 </template>
 
 <script>
-// import HeaderComponent from '../../components/users/Header.vue';
-// import FooterComponent from '../../components/users/Footer.vue';
 export default {
   computed: {
     assetPath() {
@@ -57,18 +55,12 @@ export default {
       return this.assetPath + "/images/sub1.jpg";
     },
   },
-  // components: {
-  //   'header-component': HeaderComponent,
-  //   'footer-component': FooterComponent,
-  // }
 }
 </script>
 
 <style>
   .my-jumbotron {
     background-position: 80% 60%;
-    /* background-size: cover; */
     background-repeat: no-repeat;
-    background-attachment: fixed;
   }
 </style>

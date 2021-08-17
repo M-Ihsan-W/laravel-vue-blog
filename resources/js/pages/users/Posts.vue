@@ -12,9 +12,7 @@
       </div>
 
       <div class="row mb-2">
-        <h3 class="pb-4 mb-4 fst-italic border-bottom">
-          Popular Post
-        </h3>
+        <h3 class="pb-4 mb-4 fst-italic border-bottom">Popular Post</h3>
         <div class="col-md-6" v-for="post in popularPost">
           <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm position-relative mx-0">
             <div class="col p-4 d-flex flex-column position-static">
@@ -53,7 +51,7 @@
               </div>
             </div>
           </div>
-          
+
         </div>
 
         <div class="col-md-4">
@@ -108,7 +106,6 @@ export default {
     },
     getPopularPost() {
       axios.get('/api/posts/popular').then((response) => {
-        console.info(response);
         this.popularPost = response.data;
       });
     },

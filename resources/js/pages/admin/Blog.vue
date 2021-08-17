@@ -74,7 +74,7 @@
             <p>Are you sure delete this <strong v-text="title"></strong> ?</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary btn-cancel" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-dark btn-cancel" data-bs-dismiss="modal">Cancel</button>
             <button @click.prevent="deletePost" type="button" class="btn btn-danger" id="deleteBtn">Delete</button>
           </div>
         </div>

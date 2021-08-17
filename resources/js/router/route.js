@@ -16,7 +16,6 @@ import Dashboard from '../pages/admin/Dashboard.vue';
 import Blog from '../pages/admin/Blog.vue';
 import PostCreate from '../pages/admin/PostCreate.vue';
 import PostUpdate from '../pages/admin/PostUpdate.vue';
-// import axios from "axios";
 
 const routes = [
   {

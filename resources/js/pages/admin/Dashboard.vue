@@ -33,13 +33,6 @@ export default {
     axios.get('/api/user').then((response) => {
       this.user = response.data;
     });
-  },
-  methods: {
-    logout() {
-      axios.post('/api/logout').then((response) => {
-        this.$router.push({ name: 'login' });
-      });
-    }
   }
 }
 </script>

@@ -20,23 +20,23 @@
         <form @submit.prevent="createPost" id="createPost">
           <div class="mb-3">
             <label for="creator" class="form-label">Creator</label>
-            <input v-model="form.creator" type="text" name="creator" class="form-control" id="creator">
+            <input v-model="form.creator" type="text" name="creator" class="form-control" :class="{ 'is-invalid': errors.creator }" id="creator">
               <div class="invalid-feedback" v-if="errors.creator">
-                {{ message }}
+                {{ errors.creator[0] }}
               </div>
           </div>
           <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input v-model="form.title" type="text" name="title" class="form-control" id="title" >
+            <input v-model="form.title" type="text" name="title" class="form-control" id="title" :class="{ 'is-invalid': errors.title }" >
               <div class="invalid-feedback" v-if="errors.title">
-                {{ message }}
+                {{ errors.title[0] }}
               </div>
           </div>
           <div class="mb-3">
             <label for="category" class="form-label">Category</label>
-            <input v-model="form.category" type="text" name="category" class="form-control" id="category">
+            <input v-model="form.category" type="text" name="category" class="form-control" id="category" :class="{ 'is-invalid': errors.category }">
               <div class="invalid-feedback" v-if="errors.category">
-                {{ message }}
+                {{ errors.category[0] }}
               </div>
           </div>
           <div class="mb-3 d-flex justify-content-center">
@@ -44,20 +44,20 @@
           </div>
           <div class="mb-3">
             <label for="image" class="form-label">Image</label>
-            <input @change="loadImg" type="file" name="image" class="form-control" id="image">
+            <input @change="loadImg" type="file" name="image" class="form-control" id="image" :class="{ 'is-invalid': errors.image }">
               <div class="invalid-feedback" v-if="errors.image">
-                {{ message }}
+                {{ errors.image[0] }}
               </div>
           </div>
           <div class="mb-3">
             <label for="content" class="form-label">Content</label>
+            <textarea v-model="form.content" class="form-control" name="content" id="content" cols="30" rows="10" :class="{ 'is-invalid': errors.content }"></textarea>
             <div class="invalid-feedback" v-if="errors.content">
-              {{ message }}
+              {{ errors.content[0] }}
             </div>
-            <textarea v-model="form.content" class="form-control" name="content" id="content" cols="30" rows="10"></textarea>
           </div>
           <div class="d-flex justify-content-end">
-            <a href="/admin/posts" class="btn btn-dark">Cancel</a>
+            <a href="/admin/blog" class="btn btn-dark">Cancel</a>
             <button type="submit" class="btn btn-primary mx-2">Submit</button>
           </div>
         </form>
@@ -77,7 +77,7 @@ export default {
         creator: '',
         title: '',
         category: '',
-        image: '',
+        image: null,
         content: '',
       }
     }
@@ -88,23 +88,19 @@ export default {
     });
   },
   methods: {
-    logout() {
-      axios.post('/api/logout').then((response) => {
-        this.$router.push({ name: 'login' });
-      });
-    },
     createPost() {
       let FormPost = document.getElementById('createPost');
       let formData = new FormData(FormPost);
+
       formData.append("image", this.form.image);
+
       axios.post(`/api/create/post`, formData)
       .then((response) => {
-        // console.info(response);
         this.$router.push('/admin/blog');
       }).catch((error) => {
         this.errors = error.response.data.errors;
-        // console.info(error.response);
       });
+
     },
     loadImg(e) {
       let files = e.target.files[0];

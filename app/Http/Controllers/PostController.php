@@ -39,19 +39,12 @@ class PostController extends Controller
             'message' => 'Success Insert Data'
         ], Response::HTTP_CREATED);
 
-        // return redirect('/admin/posts')->with('success', 'Create New Posts Successfull !!');
     }
 
     public function show($id)
     {
         $post = Post::find($id);
-        // return view('admin/update-post', compact('post'));
         return response()->json($post, Response::HTTP_OK);
-    }
-
-    public function edit($id)
-    {
-        //
     }
 
     public function update(Request $request, $id)
@@ -60,13 +53,11 @@ class PostController extends Controller
             'creator' => 'required',
             'title' => 'required',
             'category' => 'required',
-            'image' => 'mimes:jpg,jpeg,png',
             'content' => 'required'
         ]);
 
         $this->Post->change($request, $id);
 
-        return redirect('/admin/posts')->with('success', 'Create New Posts Successfull !!');
         return response()->json([
             'status' => true,
             'message' => 'Success Update Data',
