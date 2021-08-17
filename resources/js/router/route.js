@@ -9,6 +9,14 @@ import Post from '../pages/users/Posts.vue';
 import PostCategory from '../pages/users/PostCategory.vue';
 import DetailPost from '../pages/users/DetailPost.vue';
 import PageNotFound from '../pages/users/PageNotFound.vue';
+// Admin
+import Register from '../pages/admin/Register.vue';
+import Login from '../pages/admin/Login.vue';
+import Dashboard from '../pages/admin/Dashboard.vue';
+import Blog from '../pages/admin/Blog.vue';
+import PostCreate from '../pages/admin/PostCreate.vue';
+import PostUpdate from '../pages/admin/PostUpdate.vue';
+// import axios from "axios";
 
 const routes = [
   {
@@ -52,6 +60,82 @@ const routes = [
     },
     props: true,
     component: DetailPost
+  },
+  {
+    name: 'login',
+    path: '/login',
+    component: Login,
+    meta: {
+      title: 'Admin | Login',
+    }
+  },
+  {
+    path: '/register',
+    component: Register,
+    meta: {
+      title: 'Admin | Register',
+    }
+  },
+  {
+    name: 'dashboard',
+    path: '/admin/dashboard',
+    component: Dashboard,
+    meta: {
+      title: 'Admin | Login',
+    },
+    beforeEnter: (to, from, next) => {
+      axios.get('/api/authenticated').then(() => {
+        next();
+      }).catch(() => {
+        return next({ name: 'login' });
+      });
+    }
+  },
+  {
+    name: 'AdminBlog',
+    path: '/admin/blog',
+    component: Blog,
+    meta: {
+      title: 'Admin | Login',
+    },
+    beforeEnter: (to, from, next) => {
+      axios.get('/api/authenticated').then(() => {
+        next();
+      }).catch(() => {
+        return next({ name: 'login' });
+      });
+    }
+  },
+  {
+    name: 'CreatePost',
+    path: '/admin/blog/create',
+    component: PostCreate,
+    meta: {
+      title: 'Admin | Login',
+    },
+    beforeEnter: (to, from, next) => {
+      axios.get('/api/authenticated').then(() => {
+        next();
+      }).catch(() => {
+        return next({ name: 'login' });
+      });
+    }
+  },
+  {
+    name: 'UpdatePost',
+    path: '/admin/blog/update/:id',
+    component: PostUpdate,
+    meta: {
+      title: 'Admin | Login',
+    },
+    props: true,
+    beforeEnter: (to, from, next) => {
+      axios.get('/api/authenticated').then(() => {
+        next();
+      }).catch(() => {
+        return next({ name: 'login' });
+      });
+    }
   },
   {
     path: '/*',

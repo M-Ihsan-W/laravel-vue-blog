@@ -26,22 +26,27 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'writer' => 'required',
+            'creator' => 'required',
             'title' => 'required',
             'category' => 'required',
             'image' => ['required', 'mimes:jpg,jpeg,png'],
-            'content' => ['required', 'min:50']
+            'content' => ['required', 'min:1']
         ]);
 
         $this->Post->store($request);
+        return response()->json([
+            'status' => true,
+            'message' => 'Success Insert Data'
+        ], Response::HTTP_CREATED);
 
-        return redirect('/admin/posts')->with('success', 'Create New Posts Successfull !!');
+        // return redirect('/admin/posts')->with('success', 'Create New Posts Successfull !!');
     }
 
     public function show($id)
     {
         $post = Post::find($id);
-        return view('admin/update-post', compact('post'));
+        // return view('admin/update-post', compact('post'));
+        return response()->json($post, Response::HTTP_OK);
     }
 
     public function edit($id)
@@ -49,25 +54,33 @@ class PostController extends Controller
         //
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'writer' => 'required',
+            'creator' => 'required',
             'title' => 'required',
             'category' => 'required',
             'image' => 'mimes:jpg,jpeg,png',
-            'content' => ['required', 'min:50']
+            'content' => 'required'
         ]);
 
-        $this->Post->change($request);
+        $this->Post->change($request, $id);
 
         return redirect('/admin/posts')->with('success', 'Create New Posts Successfull !!');
+        return response()->json([
+            'status' => true,
+            'message' => 'Success Update Data',
+            'data' => $request->all(),
+        ], Response::HTTP_OK);
     }
 
     public function destroy($id)
     {
         $post = Post::find($id)->delete();
-        return back()->with('success', 'Create New Posts Successfull !!');
+        return response()->json([
+            'status' => true,
+            'message' => 'Success Delete Data',
+        ], Response::HTTP_OK);
     }
 
     public function getData()
@@ -91,6 +104,12 @@ class PostController extends Controller
     public function getSpecificCategory($category)
     {
         $posts = $this->Post->dataPostByCategory($category);
+        return response()->json($posts, Response::HTTP_ACCEPTED);
+    }
+    
+    public function getPostPopular()
+    {
+        $posts = $this->Post->popularPost();
         return response()->json($posts, Response::HTTP_ACCEPTED);
     }
 }

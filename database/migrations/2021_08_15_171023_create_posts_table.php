@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('slug')->unique();
             $table->string('category');
             $table->longText('content');
-            $table->string('writer');
+            $table->string('creator');
             $table->binary('image');
             $table->timestamps();
         });

@@ -16,7 +16,7 @@ class Post extends Model
         $request->file('image')->move(public_path('images'), $filename); 
 
         $post = new Post();
-        $post->writer = $request->writer;
+        $post->creator = $request->creator;
         $post->title = $request->title;
         $post->slug = Str::of($request->title)->slug();
         $post->category = $request->category;
@@ -25,23 +25,24 @@ class Post extends Model
         $post->save();
     }
 
-    public function change($request) {
-        $id = $request->id;
+    public function change($request, $id) {
         if($request->file('image')) {
             $filename = time()."-".$request->file('image')->getClientOriginalName();
             $request->file('image')->move(public_path('images'), $filename); 
     
             $post = Post::find($id);
-            $post->writer = $request->writer;
+            $post->creator = $request->creator;
             $post->title = $request->title;
+            $post->slug = Str::of($request->title + time())->slug();
             $post->category = $request->category;
             $post->image = $filename;
             $post->content = $request->content;
             $post->save();
         } else {
             $post = Post::find($id);
-            $post->writer = $request->writer;
+            $post->creator = $request->creator;
             $post->title = $request->title;
+            $post->slug = Str::of($request->title + time())->slug();
             $post->category = $request->category;
             $post->content = $request->content;
             $post->save();
@@ -65,6 +66,11 @@ class Post extends Model
     
     public function dataPostByCategory($category) {
         $posts = Post::where('category', $category)->get();
+        return $posts;
+    }
+
+    public function popularPost() {
+        $posts = Post::inRandomOrder()->limit(2)->get();
         return $posts;
     }
 }

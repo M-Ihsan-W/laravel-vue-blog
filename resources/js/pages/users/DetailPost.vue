@@ -1,8 +1,10 @@
 <template>
   <main class="container mt-3" v-if="detailPost != null">
-    <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
-      <div class="col-md-6 px-0">
-        <h1 class="display-4 fst-italic">{{ detailPost.title }}</h1>
+    <div class="text-white rounded bg-dark">
+      <div class="img-cover p-4 p-md-5 mb-4" :style="{ 'background-image': 'url(' + mainimage + ')' }">
+        <div class="col-md-6 px-0">
+          <h1 class="display-4 fst-italic post-title">{{ detailPost.title }}</h1>
+        </div>
       </div>
     </div>
 
@@ -20,18 +22,18 @@
           </div>
 
           <div class="p-4">
-            <h4 class="fst-italic">Archives</h4>
+            <h4 class="fst-italic">Category</h4>
             <ol class="list-unstyled mb-0" v-for="item in category">
-              <li><router-link :to="{ name: 'PostCategory', params: {category: item.category} }">{{ item.category }}</router-link></li>
+              <li><router-link class="category" :to="{ name: 'PostCategory', params: {category: item.category} }">{{ item.category }}</router-link></li>
             </ol>
           </div>
 
           <div class="p-4">
             <h4 class="fst-italic">Elsewhere</h4>
             <ol class="list-unstyled">
-              <li><a href="#">GitHub</a></li>
-              <li><a href="#">Twitter</a></li>
-              <li><a href="#">Facebook</a></li>
+              <li><a class="category" href="https://github.com/M-Ihsan-W/laravel-vue-blog.git"><i class="bi bi-github"></i> GitHub</a></li>
+              <li><a class="category" href="#"><i class="bi bi-twitter"></i> Twitter</a></li>
+              <li><a class="category" href="#"><i class="bi bi-facebook"></i> Facebook</a></li>
             </ol>
           </div>
         </div>
@@ -65,5 +67,29 @@ export default {
       });
     }
   },
+  computed: {
+    assetPath() {
+      return process.env.ASSET_PATH || "";
+    },
+    mainimage() {
+      return this.assetPath + `/images/${this.detailPost.image}`;
+    },
+  },
 }
 </script>
+<style>
+:root {
+  --clr-yellow: #FFC107;
+  --clr-black: #202020;
+}
+.img-cover {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 400px;
+}
+.post-title {
+  text-shadow: 0px 0px 2px var(--clr-black);
+}
+</style>
